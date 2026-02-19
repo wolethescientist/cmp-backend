@@ -9,7 +9,7 @@ export class InstagramService {
     static async sendMessage(recipientId: string, text: string): Promise<void> {
         try {
             const response = await axios.post(
-                env.INSTAGRAM_BASE_URL,
+                `${env.INSTAGRAM_BASE_URL}/${env.INSTAGRAM_BUSINESS_ID}/messages`,
                 {
                     recipient: { id: recipientId },
                     message: { text },
