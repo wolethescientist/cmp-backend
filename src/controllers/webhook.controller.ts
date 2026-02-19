@@ -103,6 +103,9 @@ export class WebhookController {
         // Immediately respond 200 to Meta
         res.sendStatus(200);
 
+        // Debug: Log the entire payload
+        logger.info('Instagram webhook payload received', { body: JSON.stringify(req.body) });
+
         try {
             const incomingMessages = InstagramService.parseWebhookPayload(req.body);
 

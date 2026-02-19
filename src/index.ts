@@ -11,6 +11,9 @@ import { swaggerSpec } from './docs/swagger';
 
 const app = express();
 
+// Trust Render's proxy (Required for rate limiting)
+app.set('trust proxy', 1);
+
 // ─── Security ────────────────────────────────────────
 app.use(helmet());
 const allowedOrigins = env.CORS_ORIGIN.split(',').map(origin => origin.trim());
