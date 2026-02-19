@@ -99,12 +99,13 @@ app.use(errorHandler);
 
 // ─── Start Server ────────────────────────────────────
 app.listen(env.PORT, () => {
+    const baseUrl = process.env.BASE_URL || `http://localhost:${env.PORT}`;
     logger.info(`🚀 Server running on port ${env.PORT} [${env.NODE_ENV}]`);
-    logger.info(`📡 Health check: http://localhost:${env.PORT}/health`);
-    logger.info(`📖 Swagger UI: http://localhost:${env.PORT}/docs`);
-    logger.info(`📘 ReDoc: http://localhost:${env.PORT}/redoc`);
-    logger.info(`📨 WhatsApp webhook: http://localhost:${env.PORT}/api/webhooks/whatsapp`);
-    logger.info(`📸 Instagram webhook: http://localhost:${env.PORT}/api/webhooks/instagram`);
+    logger.info(`📡 Health check: ${baseUrl}/health`);
+    logger.info(`📖 Swagger UI: ${baseUrl}/docs`);
+    logger.info(`📘 ReDoc: ${baseUrl}/redoc`);
+    logger.info(`📨 WhatsApp webhook: ${baseUrl}/api/webhooks/whatsapp`);
+    logger.info(`📸 Instagram webhook: ${baseUrl}/api/webhooks/instagram`);
 });
 
 export default app;
