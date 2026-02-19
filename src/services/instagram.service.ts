@@ -60,8 +60,8 @@ export class InstagramService {
                     ...(entry?.standby || []),
                 ];
                 for (const event of messagingEvents) {
-                    // Skip echoes (messages sent by the page itself)
-                    if (event.message?.is_echo) continue;
+                    // if (event.message?.is_echo) continue; // Allow saving echoes for now
+
 
                     if (event.message?.text) {
                         messages.push({
