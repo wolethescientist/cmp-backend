@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { MessageSquare, Users, Settings, LogOut, Crown, User as UserIcon } from 'lucide-react';
+import { MessageSquare, Users, Settings, LogOut, Instagram, LayoutDashboard, User as UserIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { User } from '@/lib/types';
 import styles from './Sidebar.module.css';
 
@@ -25,21 +26,26 @@ export default function Sidebar() {
     };
 
     const navItems = [
-        { id: '/dashboard', label: 'Messages', icon: MessageSquare },
-        { id: '/dashboard/staff', label: 'Staff', icon: Users, role: 'admin' },
+        { id: '/dashboard/whatsapp', label: 'WhatsApp', icon: MessageSquare },
+        { id: '/dashboard/instagram', label: 'Instagram', icon: Instagram },
+        { id: '/dashboard/staff', label: 'Team', icon: Users, role: 'admin' },
+        { id: '/dashboard/stats', label: 'Analytics', icon: LayoutDashboard }, // Added Analytics placeholder
         { id: '/dashboard/settings', label: 'Settings', icon: Settings },
     ];
 
     return (
         <aside className={styles.sidebar}>
             <div className={styles.header}>
-                <h1 className={styles.logo}>Central</h1>
+                <div className={styles.logoContainer}>
+                    <div className={styles.logoIcon} />
+                    <h1 className={styles.logo}>Central</h1>
+                </div>
             </div>
 
             <nav className={styles.nav}>
                 {navItems.map((item) => {
                     if (item.role && user?.role !== item.role) return null;
-                    const isActive = pathname === item.id;
+                    const isActive = pathname.startsWith(item.id);
 
                     return (
                         <div
@@ -47,8 +53,11 @@ export default function Sidebar() {
                             className={`${styles.item} ${isActive ? styles.active : ''}`}
                             onClick={() => router.push(item.id)}
                         >
-                            <item.icon size={20} />
-                            {item.label}
+                            <div className={styles.iconWrapper}>
+                                <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                            </div>
+                            <span className={styles.label}>{item.label}</span>
+                            {isActive && <motion.div layoutId="activeNav" className={styles.activeIndicator} />}
                         </div>
                     );
                 })}

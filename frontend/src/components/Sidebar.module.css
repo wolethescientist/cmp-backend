@@ -1,87 +1,132 @@
 .sidebar {
-    width: 260px;
+    width: 280px;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.95);
-    border-right: 1px solid var(--border);
+    background: rgba(15, 23, 42, 0.85);
+    /* Deep slate with transparency */
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     position: fixed;
     left: 0;
     top: 0;
     z-index: 50;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.1);
 }
 
 .header {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     padding-left: 0.5rem;
 }
 
+.logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logoIcon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
 .logo {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
     background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
+    font-family: var(--font-outfit), sans-serif;
 }
 
 .nav {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex: 1;
 }
 
 .item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
     border-radius: var(--radius);
     color: var(--text-muted);
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .item:hover {
-    background: var(--surface-hover);
     color: var(--text-main);
-    transform: translateX(2px);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .active {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--primary);
+    color: var(--text-main);
+    background: rgba(16, 185, 129, 0.1);
     font-weight: 600;
 }
 
-.active:hover {
-    background: rgba(99, 102, 241, 0.15);
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.active .iconWrapper {
+    color: var(--primary);
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.5));
+}
+
+.label {
+    position: relative;
+    z-index: 2;
+}
+
+.activeIndicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--primary);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    box-shadow: 2px 0 12px var(--primary);
 }
 
 .user {
     margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--surface-hover);
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-main);
-    font-weight: 600;
-    font-size: 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
 }
 
 .userInfo {
@@ -90,28 +135,28 @@
 }
 
 .userName {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-main);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .userRole {
     font-size: 0.75rem;
     color: var(--text-muted);
     text-transform: capitalize;
+    margin-top: 2px;
 }
 
 .logout {
     color: var(--text-muted);
-    padding: 0.5rem;
-    border-radius: var(--radius-sm);
-    transition: color 0.2s;
+    padding: 0.6rem;
+    border-radius: 10px;
+    transition: all 0.2s;
+    background: transparent;
 }
 
 .logout:hover {
     color: var(--error);
     background: rgba(239, 68, 68, 0.1);
+    transform: translateX(2px);
 }

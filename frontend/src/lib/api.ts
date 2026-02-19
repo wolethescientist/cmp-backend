@@ -32,8 +32,10 @@ export const getMe = async (): Promise<User> => {
 };
 
 // Conversations
-export const getConversations = async (status: 'open' | 'resolved' = 'open', page = 1) => {
-    const { data } = await api.get('/conversations', { params: { status, page } });
+export const getConversations = async (status: 'open' | 'resolved' = 'open', page = 1, platform?: 'whatsapp' | 'instagram') => {
+    const params: any = { status, page };
+    if (platform) params.platform = platform;
+    const { data } = await api.get('/conversations', { params });
     return data.data as Conversation[];
 };
 
