@@ -15,6 +15,29 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+api.interceptors.response.use(
+    (response) => {
+        // Log success
+        console.log(`%c[API] ${response.config.method?.toUpperCase()} ${response.config.url} → ${response.status}`, 'color: #10b981; font-weight: bold;');
+        return response;
+    },
+    (error) => {
+        // Log error detailed
+        const status = error.response?.status || 'Network Error';
+        const url = error.config?.url || 'Unknown URL';
+        const method = error.config?.method?.toUpperCase() || 'UNKNOWN';
+        const message = error.response?.data?.message || error.message;
+
+        console.group(`%c[API Error] ${method} ${url}`, 'color: #ef4444; font-weight: bold;');
+        console.error(`Status: ${status}`);
+        console.error(`Message: ${message}`);
+        if (error.response?.data) console.error('Details:', error.response.data);
+        console.groupEnd();
+
+        return Promise.reject(error);
+    }
+);
+
 // Authentication
 export const login = async (email: string, password: string): Promise<{ token: string; user: User }> => {
     const { data } = await api.post('/auth/login', { email, password });

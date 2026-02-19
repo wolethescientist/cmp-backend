@@ -34,11 +34,21 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // ─── Request Logging ─────────────────────────────────
-app.use((req, _res, next) => {
-    logger.debug(`${req.method} ${req.path}`, {
-        query: req.query,
-        ip: req.ip,
+app.use((req, res, next) => {
+    const start = Date.now();
+    logger.info(`→ ${req.method} ${req.originalUrl}`);
+
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        const msg = `← ${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`;
+
+        if (res.statusCode >= 400) {
+            logger.error(msg);
+        } else {
+            logger.info(msg);
+        }
     });
+
     next();
 });
 
