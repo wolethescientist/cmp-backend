@@ -17,6 +17,7 @@ export const env = {
     // Server
     PORT: parseInt(optionalEnv('PORT', '3000'), 10),
     NODE_ENV: optionalEnv('NODE_ENV', 'development'),
+    CORS_ORIGIN: optionalEnv('CORS_ORIGIN', '*'),
 
     // JWT
     JWT_SECRET: requireEnv('JWT_SECRET'),

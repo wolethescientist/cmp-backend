@@ -13,7 +13,11 @@ const app = express();
 
 // ─── Security ────────────────────────────────────────
 app.use(helmet());
-app.use(cors());
+const allowedOrigins = env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+app.use(cors({
+    origin: allowedOrigins.includes('*') ? '*' : allowedOrigins,
+    credentials: true,
+}));
 
 // ─── Rate Limiting ───────────────────────────────────
 const limiter = rateLimit({
