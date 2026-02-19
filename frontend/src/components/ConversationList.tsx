@@ -18,7 +18,9 @@ export default function ConversationList({ conversations, selectedId, onSelect, 
 
     const filteredConversations = conversations.filter((conv) => {
         const term = searchTerm.toLowerCase();
-        const name = (conv.customers.name || conv.customers.phone_number || '').toLowerCase();
+        // Safely access customer data
+        const customerName = conv.customers?.name || conv.customers?.phone_number || 'Unknown Customer';
+        const name = customerName.toLowerCase();
         // Safely access last message content
         const lastMsg = (conv.last_message?.content || '').toLowerCase();
         return name.includes(term) || lastMsg.includes(term);
@@ -71,7 +73,9 @@ export default function ConversationList({ conversations, selectedId, onSelect, 
 
                         <div className={styles.content}>
                             <div className={styles.nameRow}>
-                                <span className={styles.name}>{conv.customers.name || conv.customers.phone_number || 'Unknown'}</span>
+                                <span className={styles.name}>
+                                    {conv.customers?.name || conv.customers?.phone_number || 'Unknown Customer'}
+                                </span>
                                 <span className={styles.time}>
                                     {conv.last_message?.created_at || conv.created_at ? formatDistanceToNow(new Date(conv.last_message?.created_at || conv.created_at), { addSuffix: true }) : ''}
                                 </span>

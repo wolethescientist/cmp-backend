@@ -23,8 +23,9 @@ export default function ChatWindow({ conversation, onUpdate }: ChatWindowProps) 
     useEffect(() => {
         if (conversation) {
             loadMessages();
-            const interval = setInterval(loadMessages, 5000); // Poll every 5s
-            return () => clearInterval(interval);
+            // Auto-polling removed as requested
+            // const interval = setInterval(loadMessages, 5000);
+            // return () => clearInterval(interval);
         }
     }, [conversation]);
 

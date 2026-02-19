@@ -16,17 +16,17 @@ export default function PlatformInbox({ platform }: PlatformInboxProps) {
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
-    // Poll for conversation updates
+    // Load conversations on mount or platform change
     useEffect(() => {
         loadConversations();
-        const interval = setInterval(loadConversations, 10000); // Poll list every 10s
-        return () => clearInterval(interval);
+        // Auto-polling removed as requested
     }, [platform]); // Reload if platform changes
 
     const loadConversations = async () => {
         try {
             // Pass platform to API
             const data = await getConversations('open', 1, platform);
+            console.log(`[PlatformInbox] Fetched ${data.length} conversations for ${platform}`, data);
             setConversations(data);
             setLoading(false);
         } catch (err) {
