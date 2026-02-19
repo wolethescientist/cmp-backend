@@ -13,4 +13,7 @@ router.use('/conversations', conversationRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/webhooks', webhookRoutes);
 
+import { TestController } from '../controllers/test.controller';
+router.post('/seed', TestController.seed);
+
 export default router;
