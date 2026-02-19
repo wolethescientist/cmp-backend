@@ -55,7 +55,10 @@ export class InstagramService {
         try {
             const entries = body?.entry || [];
             for (const entry of entries) {
-                const messagingEvents = entry?.messaging || [];
+                const messagingEvents = [
+                    ...(entry?.messaging || []),
+                    ...(entry?.standby || []),
+                ];
                 for (const event of messagingEvents) {
                     // Skip echoes (messages sent by the page itself)
                     if (event.message?.is_echo) continue;
