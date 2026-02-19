@@ -8,6 +8,7 @@ export const swaggerSpec = {
         contact: { name: 'Admin' },
     },
     servers: [
+        { url: 'https://cmp-backend-sws6.onrender.com', description: 'Production (Render)' },
         { url: 'http://localhost:3000', description: 'Local Development' },
     ],
     tags: [
